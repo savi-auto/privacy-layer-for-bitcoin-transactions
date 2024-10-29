@@ -24,3 +24,8 @@
     {commitment: (buff 32)} 
     {leaf-index: uint, timestamp: uint}
 )
+
+(define-map nullifiers 
+    {nullifier: (buff 32)} 
+    {used: bool}
+)
