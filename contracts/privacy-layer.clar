@@ -64,3 +64,7 @@
         }
     )
 )
+
+(define-private (hash-combine (left (buff 32)) (right (buff 32)))
+    (sha256 (concat left right))
+)
