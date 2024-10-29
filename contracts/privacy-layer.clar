@@ -172,3 +172,7 @@
 (define-read-only (get-current-root)
     (ok (var-get current-root))
 )
+
+(define-read-only (is-nullifier-used (nullifier (buff 32)))
+    (is-some (map-get? nullifiers {nullifier: nullifier}))
+)
