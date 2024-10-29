@@ -116,3 +116,7 @@
         parent-index
     )
 )
+
+(define-private (get-leaf-hash (level uint) (index uint))
+    (ok (get hash (unwrap-panic (map-get? merkle-tree {level: level, index: index}))))
+)
