@@ -120,3 +120,24 @@
 (define-private (get-leaf-hash (level uint) (index uint))
     (ok (get hash (unwrap-panic (map-get? merkle-tree {level: level, index: index}))))
 )
+
+;; Public functions
+(define-public (deposit 
+    (commitment (buff 32))
+    (amount uint)
+    (token <sip-010-trait>))
+    (begin
+        (asserts! (> amount u0) ERR-INVALID-AMOUNT)
+        (try! (contract-call? token transfer amount tx-sender (as-contract tx-sender) none))
+        
+        (let ((leaf-index (try! (insert-leaf commitment))))
+            (map-set deposits 
+                {commitment: commitment}
+                {
+                    leaf-index: leaf-index,
+                    timestamp: block-height
+                })
+            (ok leaf-index)
+        )
+    )
+)
