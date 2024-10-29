@@ -10,3 +10,7 @@
 (define-constant ERR-INVALID-COMMITMENT (err u1004))
 (define-constant ERR-NULLIFIER-ALREADY-EXISTS (err u1005))
 (define-constant ERR-INVALID-PROOF (err u1006))
+
+;; Constants for the privacy pool
+(define-constant MERKLE-TREE-HEIGHT u20)
+(define-constant ZERO-VALUE (buff 32))
