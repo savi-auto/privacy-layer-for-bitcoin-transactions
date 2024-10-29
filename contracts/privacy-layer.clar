@@ -29,3 +29,8 @@
     {nullifier: (buff 32)} 
     {used: bool}
 )
+
+(define-map merkle-tree 
+    {level: uint, index: uint} 
+    {hash: (buff 32)}
+)
