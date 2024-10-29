@@ -141,3 +141,28 @@
         )
     )
 )
+
+
+(define-public (withdraw
+    (nullifier (buff 32))
+    (root (buff 32))
+    (proof (list 20 (buff 32)))
+    (recipient principal)
+    (token <sip-010-trait>)
+    (amount uint))
+    (begin
+        ;; Verify nullifier hasn't been used
+        (asserts! (is-none (map-get? nullifiers {nullifier: nullifier})) ERR-NULLIFIER-ALREADY-EXISTS)
+        
+        ;; Verify the merkle proof
+        (try! (verify-merkle-proof nullifier proof (list u1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11 u12 u13 u14 u15 u16 u17 u18 u19 u20) root))
+        
+        ;; Mark nullifier as used
+        (map-set nullifiers {nullifier: nullifier} {used: true})
+        
+        ;; Transfer tokens to recipient
+        (try! (as-contract (contract-call? token transfer amount tx-sender recipient none)))
+        
+        (ok true)
+    )
+)
