@@ -180,3 +180,9 @@
 (define-read-only (get-deposit-info (commitment (buff 32)))
     (map-get? deposits {commitment: commitment})
 )
+
+;; Initialize contract
+(begin
+    (var-set current-root ZERO-VALUE)
+    (var-set next-index u0)
+)
