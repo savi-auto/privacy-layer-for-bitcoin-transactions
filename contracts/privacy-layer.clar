@@ -14,3 +14,7 @@
 ;; Constants for the privacy pool
 (define-constant MERKLE-TREE-HEIGHT u20)
 (define-constant ZERO-VALUE (buff 32))
+
+;; Data Variables
+(define-data-var current-root (buff 32) ZERO-VALUE)
+(define-data-var next-index uint u0)
