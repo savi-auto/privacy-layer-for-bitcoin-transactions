@@ -18,3 +18,9 @@
 ;; Data Variables
 (define-data-var current-root (buff 32) ZERO-VALUE)
 (define-data-var next-index uint u0)
+
+;; Data Maps
+(define-map deposits 
+    {commitment: (buff 32)} 
+    {leaf-index: uint, timestamp: uint}
+)
