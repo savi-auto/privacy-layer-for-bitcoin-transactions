@@ -50,3 +50,17 @@
             {hash: leaf-hash, level: u0}))
     )
 )
+
+(define-private (verify-merkle-proof-level
+    (proof-element {hash: (buff 32), path-element: (buff 32), is-left: bool})
+    (accumulator {hash: (buff 32), level: uint}))
+    (let ((combined-hash 
+            (if (get is-left proof-element)
+                (hash-combine (get hash proof-element) (get path-element proof-element))
+                (hash-combine (get path-element proof-element) (get hash proof-element)))))
+        {
+            hash: combined-hash,
+            level: (+ (get level accumulator) u1)
+        }
+    )
+)
