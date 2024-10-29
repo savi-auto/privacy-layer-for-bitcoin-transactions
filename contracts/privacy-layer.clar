@@ -166,3 +166,9 @@
         (ok true)
     )
 )
+
+
+;; Read-only functions
+(define-read-only (get-current-root)
+    (ok (var-get current-root))
+)
