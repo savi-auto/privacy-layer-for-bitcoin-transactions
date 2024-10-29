@@ -88,3 +88,31 @@
             leaf-index)
     )
 )
+
+
+(define-private (update-merkle-tree-level (level uint) (leaf-index uint))
+    (let (
+        (parent-index (/ leaf-index u2))
+        (sibling-hash 
+            (unwrap-panic 
+                (get-leaf-hash 
+                    level 
+                    (if (is-odd leaf-index)
+                        (- leaf-index u1)
+                        (+ leaf-index u1)))))
+        (current-hash 
+            (unwrap-panic 
+                (get-leaf-hash level leaf-index)))
+        )
+        (map-set merkle-tree
+            {level: level, index: parent-index}
+            {hash: (hash-combine 
+                    (if (is-odd leaf-index)
+                        sibling-hash
+                        current-hash)
+                    (if (is-odd leaf-index)
+                        current-hash
+                        sibling-hash))})
+        parent-index
+    )
+)
