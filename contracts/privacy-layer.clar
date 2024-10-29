@@ -176,3 +176,7 @@
 (define-read-only (is-nullifier-used (nullifier (buff 32)))
     (is-some (map-get? nullifiers {nullifier: nullifier}))
 )
+
+(define-read-only (get-deposit-info (commitment (buff 32)))
+    (map-get? deposits {commitment: commitment})
+)
