@@ -34,3 +34,19 @@
     {level: uint, index: uint} 
     {hash: (buff 32)}
 )
+
+;; Private functions
+(define-private (verify-merkle-proof 
+    (leaf-hash (buff 32))
+    (path (list 20 (buff 32)))
+    (indices (list 20 uint))
+    (root (buff 32)))
+    (begin
+        (asserts! (is-eq (len path) MERKLE-TREE-HEIGHT) ERR-INVALID-PROOF)
+        (asserts! (is-eq (len indices) MERKLE-TREE-HEIGHT) ERR-INVALID-PROOF)
+        
+        (ok (fold verify-merkle-proof-level 
+            (map-get? merkle-tree {level: u0, index: u0})
+            {hash: leaf-hash, level: u0}))
+    )
+)
