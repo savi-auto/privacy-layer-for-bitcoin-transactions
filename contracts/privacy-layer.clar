@@ -68,3 +68,15 @@
 (define-private (hash-combine (left (buff 32)) (right (buff 32)))
     (sha256 (concat left right))
 )
+
+
+(define-private (insert-leaf (commitment (buff 32)))
+    (let ((leaf-index (var-get next-index)))
+        (map-set merkle-tree 
+            {level: u0, index: leaf-index}
+            {hash: commitment})
+        (update-merkle-tree leaf-index)
+        (var-set next-index (+ leaf-index u1))
+        (ok leaf-index)
+    )
+)
